@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import Formulario from "../component/form.jsx";
+import ContactList from "../component/contactList.jsx";
+import { Context } from "../store/appContext.js"
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+export const Home = () => {
+	const { store } = useContext(Context)
+
+	return (
+		<>
+			<div className="text-center mt-5 container">
+				<Formulario />
+			</div>
+			<div className="container">
+				Contacts
+				{store.contacts &&
+					store.contacts.map((contact, index) => {
+						console.log(contact)
+						return <ContactList key={index} contact={contact} />;
+					})}
+			</div>
+		</>
+	);
+};
